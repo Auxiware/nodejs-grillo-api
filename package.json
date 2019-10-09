@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-grillo-api",
+  "version": "1.0.0",
+  "description": "The official grillo api",
+  "main": "./src/app.js",
+  "repository": "https://github.com/messiasGeovani/nodejs-grillo-api.git",
+  "author": "messiasGeovani <messias.geovani.lima@gmail.com>",
+  "license": "MIT"
+}
