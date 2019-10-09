@@ -21,13 +21,7 @@ app.use(Express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
 // routes init
-app.use(require('./routes/user'))
-app.use(require('./routes/files'))
-app.use(require('./routes/posts'))
-app.use(require('./routes/eventos'))
-app.use(require('./routes/vagas'))
-app.use(require('./routes/musicos'))
-app.use(require('./routes/mensagens'))
+app.use(require('./routes'))
 
 // server run config
 app.listen(3000, () => {
