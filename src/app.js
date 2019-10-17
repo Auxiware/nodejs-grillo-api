@@ -23,7 +23,7 @@ class App {
         // morgen log start
         this.express.use(morgan('dev'))
         // database connection start
-        this.express.use(require('./config/database').Db)
+        const database = require('./config/database').Db
     }
 
     // routes start method
@@ -35,8 +35,3 @@ class App {
 
 // exporting the app
 exports.App = new App().express
-
-// server run config
-app.listen(3000, () => {
-    console.log('Listenning at :3000')
-})
