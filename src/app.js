@@ -1,27 +1,40 @@
-const Express = require('express')
+const express = require('express')
 const morgan = require('morgan')
-const mongoose = require('mongoose')
 
-const app = Express()
+class App {
+    constructor() {
+        // starting express app
+        this.express = express()
 
-/**
- * Database setup
- */
-mongoose.connect(
-    'mongodb+srv://geovani:geovani123@cluster0-jvwp7.mongodb.net/grillo?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true
+        // starting methods
+        this.middlewares()
+        this.routes()
     }
-)
 
-// BodyParser config
-app.use(Express.json())
-app.use(Express.urlencoded({ extended: true }))
-// morgan config
-app.use(morgan('dev'))
+    // middlewares start method
+    middlewares() {
+        // json body support config
+        this.express.use(express.json())
+        this.express.use(
+            express.urlencoded({
+                extended: true
+            })
+        )
+        // morgen log start
+        this.express.use(morgan('dev'))
+        // database connection start
+        this.express.use(require('./config/database').Db)
+    }
 
-// routes init
-app.use(require('./routes'))
+    // routes start method
+    routes() {
+        // starting the routes
+        const routes = require('./routes').Router
+    }
+}
+
+// exporting the app
+exports.App = new App().express
 
 // server run config
 app.listen(3000, () => {
