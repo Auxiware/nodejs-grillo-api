@@ -1,6 +1,6 @@
 const model = require('mongoose').model
 
-exports.Models = {
+module.exports = {
     Profile: model('profile', require('./profile').ProfileSchema),
     Musician: model('musician', require('./musician').MusicianSchema),
     Post: model('post', require('./posts').PostSchema),

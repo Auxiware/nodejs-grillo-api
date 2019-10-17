@@ -23,7 +23,7 @@ class App {
         // morgen log start
         this.express.use(morgan('dev'))
         // database connection start
-        const database = require('./config/database').Db
+        const database = require('./config/database').Db()
     }
 
     // routes start method
