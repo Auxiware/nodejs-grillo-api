@@ -6,9 +6,16 @@
   "repository": "https://github.com/messiasGeovani/nodejs-grillo-api.git",
   "author": "messiasGeovani <messias.geovani.lima@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.7.4",
     "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
