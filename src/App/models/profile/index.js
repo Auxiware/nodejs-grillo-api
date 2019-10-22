@@ -1,10 +1,8 @@
 // database configuration
 const Schema = require('mongoose').Schema
-const ObjectId = Schema.Types.ObjectId
 
 // user model
 exports.ProfileSchema = new Schema({
-    _id: ObjectId,
     nome: String,
     estado: String,
     descricao: String,

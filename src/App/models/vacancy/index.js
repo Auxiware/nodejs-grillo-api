@@ -1,6 +1,5 @@
 // database configuration
 const Schema = require('mongoose').Schema
-const ObjectId = Schema.Types.ObjectId
 
 // post schema import
 const PostSchema = require('../posts').PostSchema
@@ -9,7 +8,6 @@ const MusicianSchema = require('../musician').MusicianSchema
 
 // vacancy model
 exports.VacancySchema = new Schema({
-    _id: ObjectId,
     postData: PostSchema,
     titulo: String,
     endereco: String,

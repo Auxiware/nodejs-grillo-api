@@ -22,7 +22,7 @@ exports.SessionController = new class {
     }
 
     async show(req, res) {
-        const profile = await Profile.findById(req.params.query).exec()
+        const profile = await Profile.findById(req.query.id).exec()
         await profile.save().then(result => {
             return res.status(200).json(result)
         }).catch(err => {
@@ -31,7 +31,7 @@ exports.SessionController = new class {
     }
 
     async edit(req, res) {
-        const profile = await Profile.findById(req.params.query).exec()
+        const profile = await Profile.findById(req.query.id).exec()
         
         profile.set(req.body)
         
@@ -45,9 +45,9 @@ exports.SessionController = new class {
     }
 
     async remove(req, res) {
-        const profile = await Profile.findById(req.params.query).exec()
+        const profile = await Profile.findById(req.query.id).exec()
 
-        await Profile.deleteOne({ _id: req.params.query }).exec().then(result => {
+        await Profile.deleteOne({ _id: req.query.id }).exec().then(result => {
             return res.status(200).json({
                 message: 'Perfil deletado'
             })

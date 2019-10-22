@@ -3,7 +3,8 @@
  */
 const express = require('express')
 
-const SessionController = require('./App/controllers').Event
+const SessionController = require('./App/controllers').Session
+const EventController = require('./App/controllers').Event
 
 /**
  * Starting the routes
@@ -14,19 +15,19 @@ const routes = express.Router()
  * Creating the routes
  */
 // creating event
-routes.post('/evento', SessionController.store)
+routes.post('/evento', EventController.store)
 
 // getting all events
-routes.get('/eventos', SessionController.index)
+routes.get('/eventos', EventController.index)
 
 // getting a single event
-routes.get('/evento', SessionController.show)
+routes.get('/evento', EventController.show)
 
 // updating a event
-routes.put('/evento', SessionController.edit)
+routes.put('/evento', EventController.edit)
 
 // deleting a event
-routes.delete('/evento', SessionController.remove)
+routes.delete('/evento', EventController.remove)
 
 // creating message
 routes.post('/conversa', async (req, res) => {
@@ -256,81 +257,19 @@ routes.delete('/postagem/:id', async (req, res) => {
 })
 
 // creating user data
-routes.post('/cadastro', async (req, res) => {
-    try {            
-        // saving on dataset
-        const usuario = await Usuarios.create(req.body)
-        const result = await usuario.save()
-
-        return res.status(201).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-})
+routes.post('/cadastro', SessionController.store)
 
 // getting all users
-routes.get('/usuarios', async (req, res) => {
-    try {            
-        // getting on the database
-        const result = await Usuarios.find().exec()
-
-        return res.status(200).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-})
+routes.get('/usuarios', SessionController.index)
 
 // getting a single user
-routes.get('/usuario/:id', async (req, res) => {
-    try {            
-        // searching on dataset
-        const usuario = await Usuarios.findById(req.params.id).exec()
-        const result = await usuario.save()
-
-        return res.status(200).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-})
+routes.get('/usuario', SessionController.show)
 
 // updating a user
-routes.put('/usuario/:id', async (req, res) => {
-    try {            
-        // searching on dataset
-        const usuario = await Usuarios.findById(req.params.id).exec()
-        // updating...
-        usuario.set(req.body)
-        const result = await usuario.save()
-
-        return res.status(200).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-})
+routes.put('/usuario', SessionController.edit)
 
 // deleting a user
-routes.delete('/usuario/:id', async (req, res) => {
-    try {
-        // deleting profile image
-        const usuario = await Usuarios.findById(req.params.id).exec()
-        if (usuario.imagemPerfil.url) {
-            fs.unlink(usuario.imagemPerfil.url, err => {
-                if (err) throw err
-            })
-        }
-        if (usuario.imagemBanner.url) {
-            fs.unlink(usuario.imagemBanner.url, err => {
-                if (err) throw err
-            })
-        }
-        // deleting on dataset
-        const result = await Usuarios.deleteOne({ _id: req.params.id }).exec()
-
-        return res.status(200).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-})
+routes.delete('/usuario', SessionController.remove)
 
 // creating vacancy
 routes.post('/vaga', async (req, res) => {
