@@ -5,6 +5,7 @@ const express = require('express')
 
 const SessionController = require('./App/controllers').Session
 const EventController = require('./App/controllers').Event
+const PostController = require('./App/controllers').Post
 
 /**
  * Starting the routes
@@ -14,6 +15,21 @@ const routes = express.Router()
 /**
  * Creating the routes
  */
+// creating event
+routes.post('/post', PostController.store)
+
+// getting all events
+routes.get('/posts', PostController.index)
+
+// getting a single event
+routes.get('/post', PostController.show)
+
+// updating a event
+routes.put('/post', PostController.edit)
+
+// deleting a event
+routes.delete('/post', PostController.remove)
+
 // creating event
 routes.post('/evento', EventController.store)
 
