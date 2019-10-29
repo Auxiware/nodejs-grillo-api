@@ -25,6 +25,8 @@ class App {
         // database connection start
         const database = require('./config/database').Db
         database()
+
+        this.express.use(require('cors')())
     }
 
     // routes start method
