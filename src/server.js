@@ -1,3 +1,6 @@
+// dotenv config
+require('dotenv').config()
+
 // app object import
 const app = require('./app').App
 const mongoose = require('mongoose')

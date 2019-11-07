@@ -4,12 +4,12 @@ const Profile = require('../models').Profile
 exports.SessionController = new class {
     async store(req, res) {
         const profile = await Profile.create(req.body)
-        await profile.save().then(result => {
-            return res.status(201).json({
-                message: 'Perfil criado'
-            })
-        }).catch(err => {
-            return res.status(500).json(error)
+        await profile.save()
+        const token = await profile.generateToken()
+
+        return res.status(201).json({
+            message: 'perfil criado!',
+            token
         })
     }
 
