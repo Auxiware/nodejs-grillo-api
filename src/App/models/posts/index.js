@@ -2,7 +2,7 @@
 const Schema = require('mongoose').Schema
 
 // user model import
-const ProfileSchema = require('../profile').ProfileSchema
+const ProfileSchema = require('../profile/index.js').ProfileSchema
 
 // post model
 exports.PostSchema = new Schema({

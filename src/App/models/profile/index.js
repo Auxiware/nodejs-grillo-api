@@ -1,31 +1,35 @@
 // database configuration
 const Schema = require('mongoose').Schema
+const imageSchema = require('./Image').ImageSchema
+const musicianSchema = require('./musician').MusicianSchema
+const tokenSchema = require('./token').TokenSchema
 
 // user model
 exports.ProfileSchema = new Schema({
-    nome: String,
-    estado: String,
-    descricao: String,
-    endereco: String,
-    generoFavoritos: [String],
-    numeroDocumento: [{
-        rg: String,
-        cpf: String
-    }],
-    login: String,
-    senha: String,
-    imagem: {
-        perfil: {
-            nome: String,
-            tamanho: Number,
-            key: String,
-            url: String
-        },
-        banner: {
-            nome: String,
-            tamanho: String,
-            key: String,
-            url: String
-        }
-    }
+    nome: {
+        type: String,
+        required: true,
+        uppercase: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true
+    },
+    login: {
+        type: String,
+        required: true,
+        maxlength: 45
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6,
+        maxlength: 20
+    },
+    musicianInfo: musicianSchema,
+    tokens: [{ tokenSchema }],
+    image: imageSchema
 })
