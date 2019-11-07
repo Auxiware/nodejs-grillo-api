@@ -1,5 +1,6 @@
 // profile model import
 const Profile = require('../models').Profile
+const bcrypt = require('bcryptjs')
 
 exports.SessionController = new class {
     async store(req, res) {
@@ -13,47 +14,20 @@ exports.SessionController = new class {
         })
     }
 
-    async index(req, res) {
-        await Profile.find().exec().then(result => {
-            return res.status(200).json(result)
-        }).catch(err => {
-            return res.status(500).json(err)
-        })
-    }
+    async login(req, res) {
+        //Login a registered user
+        const { login, senha } = req.body
 
-    async show(req, res) {
-        const profile = await Profile.find({ login: req.query.login }).exec()
-        await profile.save().then(result => {
-            console.log(req.query.login)
-            return res.status(200).json(result)
-        }).catch(err => {
-            return res.status(500).json(err)
-        })
-    }
+        const profile = await Profile.findOne({ login: login })
+            .then(async result => {
 
-    async edit(req, res) {
-        const profile = await Profile.findById(req.query.id).exec()
-        
-        profile.set(req.body)
-        
-        await profile.save().then(result => {
-            return res.status(200).json({
-                message: 'Perfil atualizado'
+                const isPasswordMatch = await bcrypt.compare(senha, result.password)
+                if (!isPasswordMatch) {
+                    throw new Error({ error: 'Invalid login credentials' })
+                }
+
+                const token = await result.generateToken()
+                res.json({ token })
             })
-        }).catch(err => {
-            return res.status(500).json(err)
-        })
-    }
-
-    async remove(req, res) {
-        const profile = await Profile.findById(req.query.id).exec()
-
-        await Profile.deleteOne({ _id: req.query.id }).exec().then(result => {
-            return res.status(200).json({
-                message: 'Perfil deletado'
-            })
-        }).catch(err => {
-            return res.status(500).json(err)
-        })
     }
 }

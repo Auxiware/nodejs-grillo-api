@@ -5,6 +5,7 @@ const express = require('express')
 
 const SessionController = require('./App/controllers').Session
 const PostController = require('./App/controllers').Post
+const UserController = require('./App/controllers').User
 
 /**
  * Starting the routes
@@ -95,18 +96,21 @@ routes.delete('/conversa/:id', async (req, res) => {
 })
 
 // creating user data
-routes.post('/user', SessionController.store)
+routes.post('/register', SessionController.store)
+
+// authenticating an user
+routes.post('/login', SessionController.login)
 
 // getting all users
-routes.get('/users', SessionController.index)
+routes.get('/users', UserController.index)
 
 // getting a single user
-routes.get('/user', SessionController.show)
+routes.get('/user', UserController.show)
 
 // updating a user
-routes.put('/user', SessionController.edit)
+routes.put('/user', UserController.edit)
 
 // deleting a user
-routes.delete('/user', SessionController.remove)
+routes.delete('/user', UserController.remove)
 
 exports.Router = routes
