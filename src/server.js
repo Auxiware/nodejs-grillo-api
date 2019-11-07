@@ -1,5 +1,6 @@
 // app object import
 const app = require('./app').App
+const mongoose = require('mongoose')
 
 // database connect
 mongoose.connect(
