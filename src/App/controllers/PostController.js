@@ -3,8 +3,8 @@ const Post = require('../models').Post
 
 exports.PostController = new class {
     async store(req, res) {
-        const profile = await Post.create(req.body)
-        await profile.save().then(result => {
+        const post = await Post.create(req.body)
+        await post.save().then(result => {
             return res.status(201).json({
                 message: 'Postagem criada'
             })

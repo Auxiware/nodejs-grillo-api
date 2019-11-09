@@ -9,7 +9,7 @@ exports.SessionController = new class {
         const token = await profile.generateToken()
 
         return res.status(201).json({
-            message: 'perfil criado!',
+            user: profile.login,
             token
         })
     }

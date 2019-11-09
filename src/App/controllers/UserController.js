@@ -10,9 +10,9 @@ exports.UserController = new class {
     }
 
     async show(req, res) {
-        const profile = await Profile.findOne({ _id: req.query.id }).exec()
+        const profile = await Profile.findOne({ nome: req.query.nome }).exec()
         await profile.save().then(result => {
-            console.log(req.query.login)
+            console.log(req.query.nome)
             return res.status(200).json(result)
         }).catch(err => {
             return res.status(500).json(err)
