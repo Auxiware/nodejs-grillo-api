@@ -3,7 +3,16 @@ require('dotenv').config()
 
 // app object import
 const app = require('./app').App
+const http = require('http').createServer(app)
 const mongoose = require('mongoose')
+
+// socket.io config
+const io = require('socket.io')(http)
+
+io.on('connect', socket => {
+    console.log('a user connected')
+    socket.on('chat message', msg => console.log(msg))
+})
 
 // database connect
 mongoose.connect(
@@ -15,5 +24,5 @@ mongoose.connect(
 )
 
 // starting the server
-app.listen(8080)
+http.listen(8080)
 console.log('Application server is running!')
