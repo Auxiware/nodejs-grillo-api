@@ -9,25 +9,27 @@ exports.SessionController = new class {
         const token = await profile.generateToken()
 
         return res.status(201).json({
-            user: profile.login,
-            token
+            // user: profile.login,
+            // token
+            message: 'ok'
         })
     }
 
     async login(req, res) {
         //Login a registered user
-        const { login, senha } = req.body
+        const { login, password } = req.body
 
         const profile = await Profile.findOne({ login: login })
             .then(async result => {
 
-                const isPasswordMatch = await bcrypt.compare(senha, result.password)
+                const isPasswordMatch = await bcrypt.compare(password, result.password)
                 if (!isPasswordMatch) {
                     throw new Error({ error: 'Invalid login credentials' })
                 }
 
                 const token = await result.generateToken()
-                res.json({ token })
+                return res.status(204).json({ token })
             })
+            .catch(err => res.status(500).json(err))
     }
 }

@@ -6,12 +6,19 @@ const app = require('./app').App
 const http = require('http').createServer(app)
 const mongoose = require('mongoose')
 
+const bcrypt = require('bcryptjs')
+
 // socket.io config
 const io = require('socket.io')(http)
 
-io.on('connect', socket => {
+io.on('connection', socket => {
     console.log('a user connected')
-    socket.on('chat message', msg => console.log(msg))
+    socket.on('chat message', msg => {
+        console.log(msg)
+        io.emit('chat message', {
+
+        })
+    })
 })
 
 // database connect
@@ -25,4 +32,4 @@ mongoose.connect(
 
 // starting the server
 http.listen(8080)
-console.log('Application server is running!')
+console.log('Application server is running on 8080!')
