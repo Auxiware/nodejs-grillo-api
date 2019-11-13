@@ -27,7 +27,7 @@ exports.SessionController = new class {
             }
 
             const token = await profile.generateToken()
-            return res.status(204).json({ token })
+            return res.status(201).json({ token })
         } catch (error) {
             return res.status(500).json(error)
         }
